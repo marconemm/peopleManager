@@ -1,5 +1,6 @@
 package br.com.dio.peopleManager.service;
 
+import br.com.dio.peopleManager.exceptions.PersonNotFoundException;
 import br.com.dio.peopleManager.models.Person;
 import br.com.dio.peopleManager.dto.request.PersonDTO;
 import br.com.dio.peopleManager.repository.PersonRepo;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,5 +51,25 @@ public class PersonService {
             return  personDTO;
 
         }).collect(Collectors.toList());
+    }
+
+    public PersonDTO getById(long id) throws PersonNotFoundException {
+        Optional<Person> optPerson = personRepo.findById(id);
+
+        if (optPerson.isEmpty()){
+            throw new PersonNotFoundException(id);
+        }
+
+        Person person = optPerson.get();
+        PersonDTO personDTO = new PersonDTO();
+
+        personDTO.setId(person.getId());
+        personDTO.setName(person.getName());
+        personDTO.setSurname(person.getSurname());
+        personDTO.setCpf(person.getCpf());
+        personDTO.setBirthDate(person.getBirthDate());
+        personDTO.setPhonesList(person.getPhonesList());
+
+        return personDTO;
     }
 }
