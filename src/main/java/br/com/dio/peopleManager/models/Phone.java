@@ -50,7 +50,7 @@ public class Phone {
       this.type = type;
    }
 
-   public static Phone toPhone(PhoneDTO phoneDTO){
+   public static Phone toModel(PhoneDTO phoneDTO){
       Phone phone = new Phone();
 
       phone.setId(phoneDTO.getId());

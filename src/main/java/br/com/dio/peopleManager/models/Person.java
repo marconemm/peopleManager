@@ -31,7 +31,7 @@ public class Person {
 
     private LocalDate birthDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Phone> phonesList;
 
 
@@ -83,15 +83,16 @@ public class Person {
         this.phonesList = phonesList;
     }
 
-    public static Person toPerson(PersonDTO personDTO) {
+    public static Person toModel(PersonDTO personDTO) {
         Person validPerson = new Person();
 
+        validPerson.setId(personDTO.getId());
         validPerson.setName(personDTO.getName());
         validPerson.setSurname(personDTO.getSurname());
         validPerson.setCpf(personDTO.getCpf());
         validPerson.setBirthDate(personDTO.getBirthDate());
         validPerson.setPhonesList(personDTO.getPhonesList().stream()
-                .map(Phone::toPhone).collect(Collectors.toList()));
+                .map(Phone::toModel).collect(Collectors.toList()));
 
         return validPerson;
     }

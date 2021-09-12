@@ -1,7 +1,7 @@
 package br.com.dio.peopleManager.controllers;
 
 import br.com.dio.peopleManager.dto.request.PersonDTO;
-import br.com.dio.peopleManager.exceptions.PersonNotFoundException;
+import br.com.dio.peopleManager.exceptions.*;
 import br.com.dio.peopleManager.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +36,12 @@ public class PersonController {
     @GetMapping("/{id}")
     public PersonDTO getById(@PathVariable long id) throws PersonNotFoundException {
         return  personService.getById(id);
+    }
+
+    @PutMapping
+    public String updatePerson(@RequestBody PersonDTO data) throws PersonNotFoundException, IdNotInformedException {
+
+        return personService.updatePerson(data);
     }
 
     @DeleteMapping("/{id}")
