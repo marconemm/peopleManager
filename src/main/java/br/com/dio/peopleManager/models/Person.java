@@ -1,5 +1,6 @@
 package br.com.dio.peopleManager.models;
 
+import br.com.dio.peopleManager.dto.request.PersonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -31,6 +33,7 @@ public class Person {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Phone> phonesList;
+
 
     public long getId() {
         return id;
@@ -78,5 +81,18 @@ public class Person {
 
     public void setPhonesList(List<Phone> phonesList) {
         this.phonesList = phonesList;
+    }
+
+    public static Person toPerson(PersonDTO personDTO) {
+        Person validPerson = new Person();
+
+        validPerson.setName(personDTO.getName());
+        validPerson.setSurname(personDTO.getSurname());
+        validPerson.setCpf(personDTO.getCpf());
+        validPerson.setBirthDate(personDTO.getBirthDate());
+        validPerson.setPhonesList(personDTO.getPhonesList().stream()
+                .map(Phone::toPhone).collect(Collectors.toList()));
+
+        return validPerson;
     }
 }

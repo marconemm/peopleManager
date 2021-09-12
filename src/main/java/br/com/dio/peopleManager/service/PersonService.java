@@ -22,12 +22,7 @@ public class PersonService {
     }
 
     public String createPerson(PersonDTO personDTO){
-        Person validPerson = new Person();
-        validPerson.setName(personDTO.getName());
-        validPerson.setSurname(personDTO.getSurname());
-        validPerson.setCpf(personDTO.getCpf());
-        validPerson.setBirthDate(personDTO.getBirthDate());
-        validPerson.setPhonesList(personDTO.getPhonesList());
+        Person validPerson = Person.toPerson(personDTO);
 
         Person savedPerson = personRepo.save(validPerson);
 
@@ -38,19 +33,7 @@ public class PersonService {
     public List<PersonDTO> listAll() {
         List<Person> allPersons = personRepo.findAll();
 
-        return allPersons.stream().map(person -> {
-            PersonDTO personDTO = new PersonDTO();
-
-            personDTO.setId(person.getId());
-            personDTO.setName(person.getName());
-            personDTO.setSurname(person.getSurname());
-            personDTO.setCpf(person.getCpf());
-            personDTO.setBirthDate(person.getBirthDate());
-            personDTO.setPhonesList(person.getPhonesList());
-
-            return  personDTO;
-
-        }).collect(Collectors.toList());
+        return allPersons.stream().map(PersonDTO::toDTO).collect(Collectors.toList());
     }
 
     public PersonDTO getById(long id) throws PersonNotFoundException {
@@ -60,16 +43,6 @@ public class PersonService {
             throw new PersonNotFoundException(id);
         }
 
-        Person person = optPerson.get();
-        PersonDTO personDTO = new PersonDTO();
-
-        personDTO.setId(person.getId());
-        personDTO.setName(person.getName());
-        personDTO.setSurname(person.getSurname());
-        personDTO.setCpf(person.getCpf());
-        personDTO.setBirthDate(person.getBirthDate());
-        personDTO.setPhonesList(person.getPhonesList());
-
-        return personDTO;
+        return PersonDTO.toDTO(optPerson.get()) ;
     }
 }

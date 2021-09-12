@@ -1,5 +1,6 @@
 package br.com.dio.peopleManager.models;
 
+import br.com.dio.peopleManager.dto.request.PhoneDTO;
 import br.com.dio.peopleManager.enums.PhoneTypes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,7 @@ public class Phone {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private long id;
 
-   @Column(length = 18, nullable = false)
+   @Column(length = 16, nullable = false)
    private String number;
 
    @Enumerated(EnumType.STRING)
@@ -47,5 +48,15 @@ public class Phone {
 
    public void setType(PhoneTypes type) {
       this.type = type;
+   }
+
+   public static Phone toPhone(PhoneDTO phoneDTO){
+      Phone phone = new Phone();
+
+      phone.setId(phoneDTO.getId());
+      phone.setNumber(phoneDTO.getNumber());
+      phone.setType(phoneDTO.getType());
+
+      return phone;
    }
 }
