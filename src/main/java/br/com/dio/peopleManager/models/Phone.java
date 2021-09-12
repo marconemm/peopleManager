@@ -1,8 +1,17 @@
 package br.com.dio.peopleManager.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Phone {
    public enum PhoneType {
        HOME("Home"),
@@ -26,34 +35,4 @@ public class Phone {
    @Enumerated(EnumType.STRING)
    @Column(nullable = false)
    private PhoneType type;
-
-    public Phone() {
-        id = 0;
-        number = null;
-        type = null;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public PhoneType getType() {
-        return type;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setType(PhoneType type) {
-        this.type = type;
-    }
 }
