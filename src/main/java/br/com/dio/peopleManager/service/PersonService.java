@@ -45,4 +45,9 @@ public class PersonService {
 
         return PersonDTO.toDTO(optPerson.get()) ;
     }
+
+    public void deleteById(long id) {
+
+        personRepo.deleteById(id);
+    }
 }
