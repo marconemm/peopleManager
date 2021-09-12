@@ -16,9 +16,9 @@ Nele foram prativados os seguintes tópicos:
 - Para executar o projeto no terminal, digite o seguinte comando:
   - `mvn spring-boot:run`
 - Após executar o comando acima, basta apenas abrir o seguinte endereço e visualizar a execução do projeto:
-  - [http://localhost:8080/api/v1/people](http://localhost:8080/api/v1/people)
+  - [http://localhost:8080/api/v1/person](http://localhost:8080/api/v1/person)
 - Caso queiras acessar a minha api, a mesma se encontra no endereço:
-  - [http://marconemm-peoplemanager.herokuapp.com/api/v1/people](http://marconemm-peoplemanager.herokuapp.com/api/v1/people)
+  - [https://marconemm-peoplemanager.herokuapp.com/api/v1/person](https://marconemm-peoplemanager.herokuapp.com/api/v1/person)
 
 
 ## Links úteis:
